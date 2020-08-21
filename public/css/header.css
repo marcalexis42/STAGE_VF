@@ -1,0 +1,83 @@
+.header {
+    height: 140px;
+    width: 100%;
+    background: rgb(80,40,80);
+    position: relative;
+  }
+
+  .header__texture {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0; left: 0;
+    background: url('../img/bandeau.png');
+    background-size: cover;
+    background-position: center 30%;
+    background-repeat: no-repeat;
+    z-index: 1;
+    opacity: 0.5;
+  }
+
+  .logo{
+    margin-top: 8px;
+    margin-left: 30px;
+    position: absolute;
+    width: 400px;
+    height: 100px;
+    background: url('../img/logo-maison-des-eleves.png');
+    background-repeat: no-repeat;
+    z-index: 999;
+  }
+
+  .header__mask{
+    position: absolute;
+    bottom: 0;
+    background: 0 0;
+    height: 42px;
+    width: 100%;
+    z-index: 10;
+  }
+
+  .header__navbar {
+    height: 50px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .header__nav__bar--logo-title{
+    color: #fff;
+    font-size: 28px;
+    letter-spacing: 1px;
+  }
+
+
+  .header__nav__bar--menu--link{
+    color: white;
+    margin-left: 40px;
+    text-decoration: none;
+    z-index: 10
+  }
+
+  .header__slogan{
+    text-align: center;
+    margin-top: 20px;
+  }
+  .header__slogan--title{
+    color: #fff;
+    font-size: 40px;
+    text-transform: uppercase;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+  }
+
+  .header__slogan--btn{
+    text-decoration: none;
+    color: #fff;
+    padding: 15px 20px;
+    background: #16a085;
+    border-radius: 15px;
+  }
