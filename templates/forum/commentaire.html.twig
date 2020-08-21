@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Sujet  Forum{% endblock %}
+
+{% block body %}
+
+<br>
+
+<h1> Nouveau message : </h1>
+<br>
+{{ form_start(commentairesForm) }}
+
+    {{ form_row(commentairesForm.content) }}
+
+
+    <div class="">
+      <button type="submit" class="btn btn-lg btn-primary" onclick="window.location.href='{{path('forum')}}'">Soumettre la demande</button>
+      <button type="link" class="btn btn-lg btn-primary" onclick="window.location.href='{{path('forum')}}'">Retour</button>
+    </div>
+
+
+{{ form_end(commentairesForm) }}
+
+
+{% endblock %}

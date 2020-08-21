@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %} {{topic.subject}} {% endblock %}
+
+
+{% block body %}
+
+<br>
+
+<h1> Edition du topic : </h1>
+<br>
+
+{{ form_start(topicsForm) }}
+    {{ form_row(topicsForm.subject, {
+        label: 'Nom du topic'
+    }) }}
+
+    {{ form_row(topicsForm.type, {
+        label: 'Nature du topic'
+    }) }}
+
+    {{ form_row(topicsForm.content) }}
+
+
+    <div class="">
+      <button type="submit" class="btn btn-lg btn-primary">Editer</button>
+      <button type="link" class="btn btn-lg btn-primary" onclick="history.back()">Annuler l'édition</button>
+    </div>
+
+
+{{ form_end(topicsForm) }}
+
+
+{% endblock %}

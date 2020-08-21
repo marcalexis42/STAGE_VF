@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %} Nouveau sujet {% endblock %}
+
+{% block body %}
+
+<br>
+
+<h1> Nouveau message : </h1>
+<br>
+{{ form_start(topicsForm) }}
+    {{ form_row(topicsForm.subject, {
+        label: 'Nom du topic'
+    }) }}
+
+    {{ form_row(topicsForm.type, {
+        label: 'Nature du topic'
+    }) }}
+
+    {{ form_row(topicsForm.content) }}
+
+
+    <div class="">
+      <button type="submit" class="btn btn-lg btn-primary">Soumettre la demande</button>
+      <button type="link" class="btn btn-lg btn-primary" onclick="window.location.href='{{path('forum')}}'">Retour</button>
+    </div>
+
+
+{{ form_end(topicsForm) }}
+
+
+{% endblock %}

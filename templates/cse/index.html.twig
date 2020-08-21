@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page d'accueil du CSE{% endblock %}
+
+{% block body %}
+
+<script src="https://kit.fontawesome.com/d518001464.js" crossorigin="anonymous"></script>
+
+<br>
+
+<div class="container">
+  <h3>
+    Liste des demandes et remarques faites au CSE
+  </h3>
+
+<br>
+
+  {% for demande in demandes %}
+    <div class='row'>
+    {{ demande.editor.username }}
+    {{ demande.content }}
+    </div>
+  {% endfor %}
+</div>
+
+<br>
+
+<div class="row">
+  <button type="button" class="btn btn-lg" onclick="window.location.href='{{path('cse_demande')}}'">Formuler <acronym title="Le délégué verra qui formule la demande, mais elle apparaîtra anonymement dans la liste ci-dessus">anonymement</acronym> une nouvelle demande au CSE</button>
+  {% if app.user.delegate == true %}
+    <button type="button" class="btn btn-lg" onclick="window.location.href='{{path('cse_admin')}}'">Espace délégué</button>
+  {% endif %}
+  <button type="button" class="btn btn-lg" onclick="window.location.href='{{path('accueil')}}'">Retour</button>
+</div>
+
+{% endblock %}
