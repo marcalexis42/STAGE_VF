@@ -1,88 +1,12 @@
 {% extends 'base.html.twig' %}
 
 
-{% block title %}Index Forum{% endblock %}
+{% block title %}test{% endblock %}
 
 
 {% block body %}
 
-<link rel="stylesheet" href="{{ asset('css/forum.css') }}" />
-
-<div class="container">
-  <h3>
-    Liste des topics
-  </h3>
-  <br>
-
-<div class="bloc-pre-pagi-forum bloc-outils-top">
-
-<div class="bloc-pre-left">
-    <a href="{{path('forum_topic')}}"><span class="btn btn-actu-new-list-forum">Nouveau sujet</span></a>
-</div>
-
-<div class="bloc-rech-forum">
-              <form >
-                      <input class="txt-search" type="text" placeholder="Rechercher dans le forum" name="search_in_forum" id="search_in_forum" autocomplete="off" value=""><!--
-                        --><select class="select-search" name="type_search_in_forum" id="type_search_in_forum">
-                        <option value="subject">Sujet</option>
-                        <option value="author">Auteur</option>
-                        <option value="content">Message</option>
-                        </select><!--
-                        --><button class="btn btn-lancer-rech" type="submit"><i class="fa fa-search" ></i></button>
-              </form>
-</div>
-
- <div class="bloc-pre-right">
-<button class="btn btn-actu-new-list-forum btn-actualiser-forum">Actualiser</button>
-</div>
-
-
-</div>
-
-  <br>
-
-<ul class="container-fluid mt-100">
-  <li class="row">
-    <span class="col-5">Sujet</span>
-    <span class="col-3">Auteur</span>
-    <span class="col-1">Nb</span>
-    <span class="col-3">Dernier msg</span>
-  </li>
-</ul>
-
-<ul class="container-fluid mt-100">
-{% for topic in topics %}
-    <li class="row">
-    <span class="col-5"> <a href='{{path('forum_topic_vue', { topicId: topic.id } )}}'> {{ topic.subject }} </a></span>
-    <span class="col-3"> {{ topic.author.username }} </span>
-    <span class="col-1"> {{ topic.msgcounter }} </span>
-    <span class="col-3"> {{ topic.msgcounter | date("m/d/Y") }}
-    {% if topic.author == app.user %}
-    <button type="button" class="btn far fa-edit" onclick="window.location.href='{{path('forum_topic_edition', { topicId: topic.id } )}}'" > </button>
-    {% endif %}
-    </span>
-    </li>
-{% endfor %}
-</ul>
-
-
-
-  <nav aria-label="Something">
-     <ul class="pagination justify-content-center bg-light">
-        <li class="page-item disabled">
-           <a class="page-link" href="#" tabindex="-1">Previous</a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-           <a class="page-link" href="#">Next</a>
-        </li>
-     </ul>
-  </nav>
-
-
-</div>
-
+{{app.user}}
+{{dump(app.user)}}
 
 {% endblock %}

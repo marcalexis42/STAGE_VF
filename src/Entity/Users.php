@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use App\Entity\UserData;
+
 
 /**
  * @ORM\Entity(repositoryClass=UsersRepository::class)
@@ -61,6 +63,11 @@ class Users implements UserInterface
      * @ORM\OneToMany(targetEntity=Commentaires::class, mappedBy="author", orphanRemoval=true)
      */
     private $commentaires;
+
+    /**
+     * @ORM\OneToOne(targetEntity=UserData::class, mappedBy="users", cascade={"persist", "remove"})
+     */
+    private $userData;
 
 
 
@@ -260,5 +267,27 @@ class Users implements UserInterface
         }
 
         return $this;
+    }
+
+    public function getUserData(): ?UserData
+    {
+        return $this->userData;
+    }
+
+    public function setUserData(UserData $userData): self
+    {
+        $this->userData = $userData;
+
+        // set the owning side of the relation if necessary
+        if ($userData->getUsers() !== $this) {
+            $userData->setUsers($this);
+        }
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->username;
     }
 }

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Création{% endblock %}
+
+{% block body %}
+    <h1>Ajouter des nouvelles données de salarié</h1>
+
+    {{ include('user_data/_form.html.twig') }}
+
+    <a href="{{ path('user_data_index') }}">Retour</a>
+{% endblock %}

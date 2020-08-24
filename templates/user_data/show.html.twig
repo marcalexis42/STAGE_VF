@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{user_datum.users}}{% endblock %}
+
+{% block body %}
+    <h1>Renseignements</h1>
+
+    <table class="table">
+        <tbody>
+            {# <tr>
+                <th>Id</th>
+                <td>{{ user_datum.id }}</td>
+            </tr> #}
+            <tr>
+                <th>Poste</th>
+                <td>{{ user_datum.poste }}</td>
+            </tr>
+            <tr>
+                <th>Délégué</th>
+                <td>{{ user_datum.delegate ? 'Oui' : 'Non' }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ user_datum.adress }}</td>
+            </tr>
+            <tr>
+                <th>N° de téléphone</th>
+                <td>{{ user_datum.phonenumber }}</td>
+            </tr>
+            <tr>
+                <th>Date d'anniversaire</th>
+                <td>{{ user_datum.birthday ? user_datum.birthday|date('d/m/Y') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('user_data_index') }}">Retour</a>
+
+    <a href="{{ path('user_data_edit', {'id': user_datum.id}) }}">Modifier</a>
+
+    {{ include('user_data/_delete_form.html.twig') }}
+{% endblock %}

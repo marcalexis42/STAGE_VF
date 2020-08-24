@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Salariés{% endblock %}
+
+{% block body %}
+    <h1>Données des salariés</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Salarié</th>
+                <th>Poste</th>
+                <th>Délégué CSE</th>
+                <th>Adresse</th>
+                <th>N° téléphone</th>
+                <th>Anniversaire</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user_datum in user_datas %}
+            <tr>
+                <td>{{ user_datum.users }}</td>
+                <td>{{ user_datum.poste }}</td>
+                <td>{{ user_datum.delegate ? 'Oui' : 'Non' }}</td>
+                <td>{{ user_datum.adress }}</td>
+                <td>{{ user_datum.phonenumber }}</td>
+                <td>{{ user_datum.birthday ? user_datum.birthday|date('d/m/Y') : '' }}</td>
+                <td>
+                    <a href="{{ path('user_data_show', {'id': user_datum.id}) }}">Voir</a>
+                    <a href="{{ path('user_data_edit', {'id': user_datum.id}) }}">Modifier</a>
+                    {# <a href="{{ path('user_data_delete', {'id': user_datum.id}) }}">Supprimer</a> #}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">Aucune donnée</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('user_data_new') }}">Renseigner nouvelles données</a>
+{% endblock %}
