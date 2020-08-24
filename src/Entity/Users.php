@@ -69,6 +69,11 @@ class Users implements UserInterface
      */
     private $userData;
 
+    /**
+     * @ORM\OneToMany(targetEntity=DemandeCSE::class, mappedBy="user")
+     */
+    private $demandeCSEs;
+
 
 
     public function __construct()
@@ -76,6 +81,7 @@ class Users implements UserInterface
         $this->demandes = new ArrayCollection();
         $this->topics = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
+        $this->demandeCSEs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -289,5 +295,36 @@ class Users implements UserInterface
     public function __toString(): string
     {
         return $this->username;
+    }
+
+    /**
+     * @return Collection|DemandeCSE[]
+     */
+    public function getDemandeCSEs(): Collection
+    {
+        return $this->demandeCSEs;
+    }
+
+    public function addDemandeCSE(DemandeCSE $demandeCSE): self
+    {
+        if (!$this->demandeCSEs->contains($demandeCSE)) {
+            $this->demandeCSEs[] = $demandeCSE;
+            $demandeCSE->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDemandeCSE(DemandeCSE $demandeCSE): self
+    {
+        if ($this->demandeCSEs->contains($demandeCSE)) {
+            $this->demandeCSEs->removeElement($demandeCSE);
+            // set the owning side to null (unless already changed)
+            if ($demandeCSE->getUser() === $this) {
+                $demandeCSE->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }

@@ -31,6 +31,14 @@
                 <th>Date d'anniversaire</th>
                 <td>{{ user_datum.birthday ? user_datum.birthday|date('d/m/Y') : '' }}</td>
             </tr>
+            <tr>
+                <th>Compteur d'heures</th>
+                <td>{{ user_datum.hours }}</td>
+            </tr>
+            <tr>
+                <th>Compteur de congés</th>
+                <td>{{ user_datum.holidays }}</td>
+            </tr>
         </tbody>
     </table>
 

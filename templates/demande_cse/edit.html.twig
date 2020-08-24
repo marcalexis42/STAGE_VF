@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier{% endblock %}
+
+{% block body %}
+    <h1>Modifier une demande pour le CSE</h1>
+
+    {{ include('demande_cse/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+
+    <a href="{{ path('demandecse_index') }}">Retour</a>
+
+    {{ include('demande_cse/_delete_form.html.twig') }}
+{% endblock %}

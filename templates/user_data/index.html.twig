@@ -14,6 +14,8 @@
                 <th>Adresse</th>
                 <th>N° téléphone</th>
                 <th>Anniversaire</th>
+                <th>Compteur d'heures</th>
+                <th>Compteur de congés</th>
                 <th></th>
             </tr>
         </thead>
@@ -26,6 +28,8 @@
                 <td>{{ user_datum.adress }}</td>
                 <td>{{ user_datum.phonenumber }}</td>
                 <td>{{ user_datum.birthday ? user_datum.birthday|date('d/m/Y') : '' }}</td>
+                <td>{{ user_datum.hours }}</td>
+                <td>{{ user_datum.holidays }}</td>
                 <td>
                     <a href="{{ path('user_data_show', {'id': user_datum.id}) }}">Voir</a>
                     <a href="{{ path('user_data_edit', {'id': user_datum.id}) }}">Modifier</a>

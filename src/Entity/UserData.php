@@ -48,6 +48,16 @@ class UserData
      */
     private $birthday;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $hours;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $holidays;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -121,6 +131,30 @@ class UserData
     public function setBirthday(?\DateTimeInterface $birthday): self
     {
         $this->birthday = $birthday;
+
+        return $this;
+    }
+
+    public function getHours(): ?float
+    {
+        return $this->hours;
+    }
+
+    public function setHours(?float $hours): self
+    {
+        $this->hours = $hours;
+
+        return $this;
+    }
+
+    public function getHolidays(): ?float
+    {
+        return $this->holidays;
+    }
+
+    public function setHolidays(?float $holidays): self
+    {
+        $this->holidays = $holidays;
 
         return $this;
     }

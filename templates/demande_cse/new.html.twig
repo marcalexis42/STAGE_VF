@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle demande{% endblock %}
+
+{% block body %}
+    <h1>Formuler une nouvelle demande pour le CSE</h1>
+
+    {{ include('demande_cse/_form.html.twig') }}
+
+    <a href="{{ path('demandecse_index') }}">back to list</a>
+{% endblock %}

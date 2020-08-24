@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Index{% endblock %}
+
+{% block body %}
+    <h1>Liste des demandes pour le CSE</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Salarié</th>
+                <th>Objet</th>
+                <th>Contenu</th>
+                <th>Date de création</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for demande_c_s_e in demande_c_s_es %}
+            <tr>
+                <td>{{ demande_c_s_e.user}}</td>
+                <td>{{ demande_c_s_e.object }}</td>
+                <td>{{ demande_c_s_e.content }}</td>
+                <td>{{ demande_c_s_e.createdat ? demande_c_s_e.createdat|date('d-m-Y') : '' }}</td>
+                <td>
+                    <a href="{{ path('demandecse_show', {'id': demande_c_s_e.id}) }}">Voir</a>
+                    <a href="{{ path('demandecse_edit', {'id': demande_c_s_e.id}) }}">Modifier</a>
+                    <a href="{{ path('demandecse_delete', {'id': demande_c_s_e.id}) }}">Supprimer</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Pas de demandes</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('demandecse_new') }}">Nouvelle demande</a>
+{% endblock %}
