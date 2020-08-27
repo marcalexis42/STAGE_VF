@@ -14,8 +14,7 @@
                 <th>Adresse</th>
                 <th>N° téléphone</th>
                 <th>Anniversaire</th>
-                <th>Compteur d'heures</th>
-                <th>Compteur de congés</th>
+                <th></th>
                 <th></th>
             </tr>
         </thead>
@@ -28,12 +27,18 @@
                 <td>{{ user_datum.adress }}</td>
                 <td>{{ user_datum.phonenumber }}</td>
                 <td>{{ user_datum.birthday ? user_datum.birthday|date('d/m/Y') : '' }}</td>
-                <td>{{ user_datum.hours }}</td>
-                <td>{{ user_datum.holidays }}</td>
                 <td>
-                    <a href="{{ path('user_data_show', {'id': user_datum.id}) }}">Voir</a>
-                    <a href="{{ path('user_data_edit', {'id': user_datum.id}) }}">Modifier</a>
-                    {# <a href="{{ path('user_data_delete', {'id': user_datum.id}) }}">Supprimer</a> #}
+                    
+                    {% if (app.user == user_datum.users) or app.user.userData.poste == ('Direction')  %}
+                        <a href="{{ path('user_data_show', {'id': user_datum.id}) }}">Voir</a>
+                        <a href="{{ path('user_data_edit', {'id': user_datum.id}) }}">Modifier</a>
+                        <a href="{{ path('user_data_delete', {'id': user_datum.id}) }}">Supprimer</a>
+                    {% endif %}
+                    
+                </td>
+                <td>{% if app.user.userData.poste == 'Comptable' %}
+                        <a href="{{ path('modifcompteur', {'id': user_datum.id}) }}">Accès comptable</a>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}

@@ -20,7 +20,7 @@
             <tr>
                 
                 <td>{{ demande_c_s_e.object }}</td>
-                <td>{{ demande_c_s_e.content }}</td>
+                <td class='text-justify'>{{ demande_c_s_e.content }}</td>
                 <td>{{ demande_c_s_e.createdat ? demande_c_s_e.createdat|date('d-m-Y') : '' }}</td>
                 {% if app.user == demande_c_s_e.user %}
                     <td>
@@ -39,6 +39,7 @@
     </table>
 
     <a href="{{ path('demandecse_new') }}">Nouvelle demande</a>
+    <a href="{{ path('accueil') }}">Retour</a>
     {% if app.user.userData.delegate %}
         <a href="{{ path('demandecse_indexadmin') }}">Espace délégué</a>
     {% endif %}

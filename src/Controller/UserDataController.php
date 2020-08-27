@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\UserData;
+use App\Form\CompteurType;
 use App\Form\UserDataType;
 use App\Repository\UserDataRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,6 +32,8 @@ class UserDataController extends AbstractController
     public function new(Request $request): Response
     {
         $userDatum = new UserData();
+        $userDatum -> setHours(0);
+        $userDatum -> setHolidays(0);
         $form = $this->createForm(UserDataType::class, $userDatum);
         $form->handleRequest($request);
 
@@ -90,5 +93,25 @@ class UserDataController extends AbstractController
         }
 
         return $this->redirectToRoute('user_data_index');
+    }
+
+    /**
+     * @Route("/{id}/modif", name="modifcompteur", methods={"GET","POST"})
+     */
+    public function modif(Request $request, UserData $userDatum): Response
+    {
+        $form = $this->createForm(CompteurType::class, $userDatum);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('user_data_index');
+        }
+
+        return $this->render('demande_comptable/editcompteur.html.twig', [
+            'user_datum' => $userDatum,
+            'form' => $form->createView(),
+        ]);
     }
 }

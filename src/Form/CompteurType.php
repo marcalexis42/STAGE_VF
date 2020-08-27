@@ -14,13 +14,13 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class UserDataType extends AbstractType
+class CompteurType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-    
+        
         $builder
-            ->add('users')
+            /* ->add('users')
             ->add('poste',ChoiceType::class, [
             'choices' => [
             'Direction'   => 'Direction',
@@ -48,16 +48,14 @@ class UserDataType extends AbstractType
             
             ->add('birthday', BirthdayType::class, [
                 'label' => "Date d'anniversaire"
+            ]) */
+            ->add('hours', NumberType::class, [
+                'label' => "Compteur d'heures"
             ])
-            
-            
+            ->add('holidays', NumberType::class, [
+                'label' => "Compteur de congés"
+            ])
         ;
     }
-
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults([
-            'data_class' => UserData::class,
-        ]);
-    }
 }
+

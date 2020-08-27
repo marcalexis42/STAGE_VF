@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Demandes comptable{% endblock %}
+
+{% block body %}
+    <h2>{{app.user}}, voici la liste de vos demandes à la comptable</h2>
+
+    <h4>Votre compteur d'heures: {{app.user.userData.hours}}</h4>
+    <h4>Jours de congés restant: {{app.user.userData.holidays}}</h4>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Objet</th>
+                <th>Motif</th>
+                <th>Date de création</th>
+                <th>Heures supplémentaires déclarées</th>
+                <th>Heures de récup demandées</th>
+                <th>Jours de congés demandés</th>
+                <th>Montant acompte demandé</th>
+                <th>Demande acceptée ?</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for demande_comptable in demande_comptables %}
+            {% if app.user == demande_comptable.user %}
+            <tr>
+                <td>{{ demande_comptable.object }}</td>
+                <td class='text-justify'>{{ demande_comptable.content }}</td>
+                <td>{{ demande_comptable.createdat ? demande_comptable.createdat|date('d-m-Y') : '' }}</td>
+                <td>{{ demande_comptable.hourssupp }}</td>
+                <td>{{ demande_comptable.hoursrequest }}</td>
+                <td>{{ demande_comptable.holidaysrequest }}</td>
+                <td>{{ demande_comptable.money }} </td>
+                <td>{{ demande_comptable.accepted ? 'Oui' : 'Non' }}</td>
+                
+                <td>
+                    
+                    <a href="{{ path('demande_comptable_show', {'id': demande_comptable.id}) }}">Voir</a>
+                    {% if demande_comptable.accepted == false %}
+                        <a href="{{ path('demande_comptable_edit', {'id': demande_comptable.id}) }}">Modifier</a>
+                        <a href="{{ path('demande_comptable_delete', {'id': demande_comptable.id}) }}">Supprimer</a>
+                    {% endif %}
+                    
+                </td>
+            </tr>
+            {% endif %}
+        {% else %}
+            <tr>
+                <td colspan="5">Aucune demande trouvée</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('demande_comptable_new') }}">Nouvelle demande</a>
+    <a href="{{ path('accueil') }}">Retour</a>
+    {% if app.user.userData.poste == 'Comptable' %}
+        <a href="{{ path('demande_comptable_indexadmin') }}">Espace Comptable</a>
+    {% endif %}
+{% endblock %}

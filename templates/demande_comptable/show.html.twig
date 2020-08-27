@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Demande Comptable{% endblock %}
+
+{% block body %}
+    <h1>Demande Comptable</h1>
+
+    <table class="table">
+        <tbody>
+            {# <tr>
+                <th>Id</th>
+                <td>{{ demande_comptable.id }}</td>
+            </tr> #}
+            <tr>
+                <th>Objet</th>
+                <td>{{ demande_comptable.object }}</td>
+            </tr>
+            <tr>
+                <th>Motif</th>
+                <td>{{ demande_comptable.content }}</td>
+            </tr>
+            <tr>
+                <th>Créée le</th>
+                <td>{{ demande_comptable.createdat ? demande_comptable.createdat|date('d-m-Y') : '' }}</td>
+            </tr>
+            {% if demande_comptable.hourssupp != 0 %}
+                <tr>
+                    <th>Heures supplémentaires déclarées</th>
+                    <td>{{ demande_comptable.hourssupp }}</td>
+                </tr>
+            {% endif %}
+            {% if demande_comptable.hoursrequest != 0 %}
+                <tr>
+                    <th>Heures de récup demandées</th>
+                    <td>{{ demande_comptable.hoursrequest }}</td>
+                </tr>
+            {% endif %}
+            {% if demande_comptable.holidaysrequest != 0 %}    
+                <tr>
+                    <th>Congés payés demandés </th>
+                    <td>{{ demande_comptable.holidaysrequest }}</td>
+                </tr>
+            {% endif %}
+            {% if demande_comptable.money != 0 %}    
+                <tr>
+                    <th> Montant de l'acompte demandé </th>
+                    <td>{{ demande_comptable.money }}</td>
+                </tr>
+            {% endif %}
+
+            <tr>
+                <th>La demande a-t-elle été accceptée ?</th>
+                <td>{{demande_comptable.accepted ? 'Oui' : 'Non' }}</td>
+                {% if app.user.userData.poste == 'Comptable' %}
+                    {% if demande_comptable.accepted %}
+                        <td><a href="{{ path('demande_comptable_refuse', {'id': demande_comptable.id}) }}">Refuser la demande</a></td>                        
+                    {% else %}
+                        <td><a href="{{ path('demande_comptable_accept', {'id': demande_comptable.id}) }}">Accepter la demande</a></td>
+                    {% endif %}
+                {% endif %}
+            </tr>
+
+        </tbody>
+    </table>
+
+    {% if app.user.userData.poste =='Comptable' %}
+        <a href="{{ path('demande_comptable_indexadmin') }}">Retour</a>
+    {% else %}
+        <a href="{{ path('demande_comptable_index') }}">Retour</a>
+    {% endif %}
+
+    <a href="{{ path('demande_comptable_edit', {'id': demande_comptable.id}) }}">Modifier</a>
+
+    {{ include('demande_comptable/_delete_form.html.twig') }}
+{% endblock %}

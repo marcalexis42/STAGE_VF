@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mis à jour{% endblock %}
+
+{% block body %}
+    <h1>Mise à jour des compteurs de {{user_datum.users}}</h1>
+    
+    <div>
+        <h3>Compteur d'heures du salarié : {{user_datum.hours}}</h3>
+    </div>
+    <div>
+        <h3>Compteur de jours de congés du salarié : {{user_datum.holidays}}</h3>
+    </div>
+
+    {{form_start(form)}}
+        {{form_row(form.hours)}}
+        {{form_row(form.holidays)}}
+    
+        <button type="submit" class="btn">Mettre à jour</button>
+    {{form_end(form)}}
+    
+    <a href="{{ path('user_data_index') }}">Retour</a>
+
+
+{% endblock %}

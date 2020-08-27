@@ -74,6 +74,11 @@ class Users implements UserInterface
      */
     private $demandeCSEs;
 
+    /**
+     * @ORM\OneToMany(targetEntity=DemandeComptable::class, mappedBy="user")
+     */
+    private $demandeComptables;
+
 
 
     public function __construct()
@@ -82,6 +87,7 @@ class Users implements UserInterface
         $this->topics = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
         $this->demandeCSEs = new ArrayCollection();
+        $this->demandeComptables = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -322,6 +328,37 @@ class Users implements UserInterface
             // set the owning side to null (unless already changed)
             if ($demandeCSE->getUser() === $this) {
                 $demandeCSE->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|DemandeComptable[]
+     */
+    public function getDemandeComptables(): Collection
+    {
+        return $this->demandeComptables;
+    }
+
+    public function addDemandeComptable(DemandeComptable $demandeComptable): self
+    {
+        if (!$this->demandeComptables->contains($demandeComptable)) {
+            $this->demandeComptables[] = $demandeComptable;
+            $demandeComptable->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDemandeComptable(DemandeComptable $demandeComptable): self
+    {
+        if ($this->demandeComptables->contains($demandeComptable)) {
+            $this->demandeComptables->removeElement($demandeComptable);
+            // set the owning side to null (unless already changed)
+            if ($demandeComptable->getUser() === $this) {
+                $demandeComptable->setUser(null);
             }
         }
 
