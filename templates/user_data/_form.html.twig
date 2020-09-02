@@ -1,0 +1,26 @@
+{{ form_start(form) }}
+    {# {% if app.user.userData.poste is defined %}
+        {{ form_row(form.users, {'label' : 'Utilisateur'}) }}
+        {{ form_row(form.poste, {'label' :'Poste occupé'})}}
+        {{ form_row(form.delegate, {'label' :'Délégué CSE ?'}) }}
+        {{ form_row(form.adress, {'label' :'Adresse postale'}) }}
+        {{ form_row(form.phonenumber,{'label' : 'N° de téléphone'}) }}
+        {{ form_row(form.birthday, {'label' :'Date de naissance'}) }}
+    
+        {% if app.user.userData.poste == 'Comptable' %}
+            {{ form_row(form.hours,{'label' : "Compteur d'heures supp/récup"}) }}
+            {{ form_row(form.holidays, {'label' :'Compteur de jours de congés'}) }}
+        {% endif %}
+    {% else %}
+        {{ form_row(form.users, {'label' : 'Utilisateur'}) }}
+        {{ form_row(form.poste, {'label' :'Poste occupé'})}}
+        {{ form_row(form.delegate, {'label' :'Délégué CSE ?'}) }}
+        {{ form_row(form.adress, {'label' :'Adresse postale'}) }}
+        {{ form_row(form.phonenumber,{'label' : 'N° de téléphone'}) }}
+        {{ form_row(form.birthday, {'label' :'Date de naissance'}) }}
+    {% endif %} #}
+    {{ form_widget(form) }}
+
+    
+    <button class="btn">{{ button_label|default('Créer') }}</button>
+{{ form_end(form) }}

@@ -40,14 +40,23 @@
 
                     <div class="header__navbar">
                       <div class="header__nav__bar--menu">
-                      <a href="{{path('accueil')}}" class="header__nav__bar--menu--link"> <i class="fas fa-home"> </i> Accueil</a>
-                      <a href="{{path('c_r_index')}}" class="header__nav__bar--menu--link"> <i class="fas fa-file"> </i> Compte Rendu </a>
-                      <a href="{{path('topics_index')}}" class="header__nav__bar--menu--link"> <i class="fas fa-newspaper"> </i> Forum</a>
-                      <a href="#" class="header__nav__bar--menu--link"> <i class="fas fa-phone"> </i> Compte</a>
-                      {% if app.user %}
-                      <a href="{{path('app_logout')}}" class="header__nav__bar--menu--link"> <i class="fas fa-sign-out-alt"></i> Deconnexion</a>
-                      {% else %}
-                      <a href="{{path('app_login')}}" class="header__nav__bar--menu--link"> <i class="fas fa-sign-in-alt"></i> Connexion</a>
+                        <a href="{{path('accueil')}}" class="header__nav__bar--menu--link"> <i class="fas fa-home"> </i> Accueil</a>
+                        <a href="{{path('topics_index')}}" class="header__nav__bar--menu--link"> <i class="fas fa-newspaper"> </i> Forum</a>
+                        <a href="{{path('c_r_index')}}" class="header__nav__bar--menu--link"> <i class="fas fa-file"> </i> Compte rendu</a>
+
+                        {% if app.user %}
+                          {% if app.user.userData != NULL %}
+                            {% if app.user %}
+                              <a href="{{ path('user_data_show', {'id': app.user.userData.id}) }}" class="header__nav__bar--menu--link"> <i class="fas fa-phone"> </i> Compte</a>
+                            {% endif %}
+                          {% else %}
+                          <a href="{{ path('user_data_new') }}" class="header__nav__bar--menu--link"> <i class="fas fa-phone"> </i> Compte</a>
+
+                          {% endif %}
+                        <a href="{{path('app_logout')}}" class="header__nav__bar--menu--link"> <i class="fas fa-sign-out-alt"></i> Deconnexion</a>
+                        {% else %}
+                          <a href="{{path('app_login')}}" class="header__nav__bar--menu--link"> <i class="fas fa-sign-in-alt"></i> Connexion</a>
+
                       {% endif %}
                       </div>
                     </div>

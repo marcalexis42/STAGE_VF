@@ -56,13 +56,28 @@ class Users implements UserInterface
      */
     private $commentaires;
 
+    /**
+     * @ORM\OneToOne(targetEntity=UserData::class, mappedBy="users", cascade={"persist", "remove"})
+     */
+    private $userData;
+
+    /**
+     * @ORM\OneToMany(targetEntity=DemandeCSE::class, mappedBy="user")
+     */
+    private $demandeCSEs;
+
+    /**
+     * @ORM\OneToMany(targetEntity=DemandeComptable::class, mappedBy="user")
+     */
+    private $demandeComptables;
 
 
     public function __construct()
     {
-        $this->demandes = new ArrayCollection();
         $this->topics = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
+        $this->demandeCSEs = new ArrayCollection();
+        $this->demandeComptables = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -193,6 +208,36 @@ class Users implements UserInterface
 
         return $this;
     }
+      /**
+       * @return Collection|Demande[]
+       */
+      public function getDemandes(): Collection
+      {
+          return $this->demandes;
+      }
+
+      public function addDemande(Demande $demande): self
+      {
+          if (!$this->demandes->contains($demande)) {
+              $this->demandes[] = $demande;
+              $demande->setEditor($this);
+          }
+
+          return $this;
+      }
+
+      public function removeDemande(Demande $demande): self
+      {
+          if ($this->demandes->contains($demande)) {
+              $this->demandes->removeElement($demande);
+              // set the owning side to null (unless already changed)
+              if ($demande->getEditor() === $this) {
+                  $demande->setEditor(null);
+              }
+          }
+
+          return $this;
+      }
 
     /**
      * @return Collection|Commentaires[]
@@ -219,6 +264,91 @@ class Users implements UserInterface
             // set the owning side to null (unless already changed)
             if ($commentaire->getAuthor() === $this) {
                 $commentaire->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+    public function getUserData(): ?UserData
+    {
+        return $this->userData;
+    }
+
+    public function setUserData(UserData $userData): self
+    {
+        $this->userData = $userData;
+
+        // set the owning side of the relation if necessary
+        if ($userData->getUsers() !== $this) {
+            $userData->setUsers($this);
+        }
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->username;
+    }
+
+    /**
+     * @return Collection|DemandeCSE[]
+     */
+    public function getDemandeCSEs(): Collection
+    {
+        return $this->demandeCSEs;
+    }
+
+    public function addDemandeCSE(DemandeCSE $demandeCSE): self
+    {
+        if (!$this->demandeCSEs->contains($demandeCSE)) {
+            $this->demandeCSEs[] = $demandeCSE;
+            $demandeCSE->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDemandeCSE(DemandeCSE $demandeCSE): self
+    {
+        if ($this->demandeCSEs->contains($demandeCSE)) {
+            $this->demandeCSEs->removeElement($demandeCSE);
+            // set the owning side to null (unless already changed)
+            if ($demandeCSE->getUser() === $this) {
+                $demandeCSE->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|DemandeComptable[]
+     */
+    public function getDemandeComptables(): Collection
+    {
+        return $this->demandeComptables;
+    }
+
+    public function addDemandeComptable(DemandeComptable $demandeComptable): self
+    {
+        if (!$this->demandeComptables->contains($demandeComptable)) {
+            $this->demandeComptables[] = $demandeComptable;
+            $demandeComptable->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDemandeComptable(DemandeComptable $demandeComptable): self
+    {
+        if ($this->demandeComptables->contains($demandeComptable)) {
+            $this->demandeComptables->removeElement($demandeComptable);
+            // set the owning side to null (unless already changed)
+            if ($demandeComptable->getUser() === $this) {
+                $demandeComptable->setUser(null);
             }
         }
 

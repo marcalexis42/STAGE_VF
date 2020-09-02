@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier{% endblock %}
+
+{% block body %}
+    <h1>Modification</h1>
+
+    {{ include('user_data/_form.html.twig',   {'button_label': 'Mettre à jour'}) }}
+    {# {{form_start(form)}}
+        {{form_row(form.hours)}}
+        {{form_row(form.holidays)}}
+    {{form_end(form)}} #}
+
+    <a href="{{ path('user_data_index') }}">Retour</a>
+
+    {{ include('user_data/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Demande{% endblock %}
+
+{% block body %}
+    <h1>Demande CSE</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ demande_c_s_e.id }}</td>
+            </tr>
+            <tr>
+                <th>Object</th>
+                <td>{{ demande_c_s_e.object }}</td>
+            </tr>
+            <tr>
+                <th>Content</th>
+                <td>{{ demande_c_s_e.content }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{{ demande_c_s_e.createdat ? demande_c_s_e.createdat|date('d-m-Y') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('demandecse_index') }}">Retour</a>
+
+    <a href="{{ path('demandecse_edit', {'id': demande_c_s_e.id}) }}">Modifier</a>
+
+    {{ include('demande_cse/_delete_form.html.twig') }}
+{% endblock %}
