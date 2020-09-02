@@ -13,6 +13,7 @@
                 <th>Délégué CSE</th>
                 <th>Adresse</th>
                 <th>N° téléphone</th>
+                <th>Email</th>
                 <th>Anniversaire</th>
                 <th></th>
                 <th></th>
@@ -26,6 +27,7 @@
                 <td>{{ user_datum.delegate ? 'Oui' : 'Non' }}</td>
                 <td>{{ user_datum.adress }}</td>
                 <td>{{ user_datum.phonenumber }}</td>
+                <td>{{ user_datum.users.email }}</td>
                 <td>{{ user_datum.birthday ? user_datum.birthday|date('d/m/Y') : '' }}</td>
                 <td>
                     

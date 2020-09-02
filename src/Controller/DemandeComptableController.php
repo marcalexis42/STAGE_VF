@@ -68,9 +68,11 @@ class DemandeComptableController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($demandeComptable);
             $entityManager->flush();
+            $this->addFlash('message', 'Votre demande a été transmise.'); // Permet un message flash de renvoi
 
             return $this->redirectToRoute('demande_comptable_index');
         }
+        //Partie envoi de mail
 
         return $this->render('demande_comptable/new.html.twig', [
             'demande_comptable' => $demandeComptable,
@@ -124,27 +126,47 @@ class DemandeComptableController extends AbstractController
     }
     /**
      * @Route("/{id}/accept", name="demande_comptable_accept", methods={"GET","POST"})
-     * @Entity("userdata", expr="repository.find(UserData_id)")
-     * @ParamConverter("userdata", options={"id"="user_id"})
      */
-    public function approuverRdvAction(Request $request, DemandeComptable $demande, UserData $userdata): Response
+    public function approuverRdvAction(Request $request, DemandeComptable $demande/* , UserData $userdata */): Response
     {
         $em = $this->getDoctrine()->getManager();
         
-        $demande->acceptdemande();
         
-        /* $demandeur=$demande->getUser();
+        $demande->acceptdemande();
+        $demandeur=$demande->getUser();
         $userdata=$demandeur->getUserData();
-        $donneesdemande=array($demande->getHoursrequest(),$demande->getHourssupp(), $demande->getHolidaysrequest() );
-        $donneesuser=array($userdata->getHours(), $userdata->getHolidays());
-        $donneesuser(0)->$donneesuser(0)-$donneesdemande(0)+$donneesdemande(1);
-        $donneesuser(1)->$donneesuser(1)-$donneesdemande(2);
-        $userdata->setHours($donneesuser(0));
-        $userdata->setHolidays($donneesuser(1)); */
-
+        
+        
+        $donneesdemande=array(
+            'récup'=>$demande->getHoursrequest(),
+            'supp'=>$demande->getHourssupp(), 
+            'congés'=>$demande->getHolidaysrequest()
+        );
+        $donneesuser=array(
+            'heures'=>$userdata->getHours(), 
+            'jours'=>$userdata->getHolidays()
+        );
+        
+        $donneesuser['heures']=$donneesuser['heures']-$donneesdemande['récup']+$donneesdemande['supp'];
+        $donneesuser['jours']=$donneesuser['jours']-$donneesdemande['congés'];
+        
+        $userdata->setHours($donneesuser['heures']);        
+        $userdata->setHolidays($donneesuser['jours']);
+        
         $em->flush();
         
         return $this->redirectToRoute('demande_comptable_indexadmin');
+        /* return $this->render('test.html.twig', [
+            'donneesdemande' => $donneesdemande,
+            'donneesuser'=>$donneesuser,
+            'demande'=>$demande,
+            'demandeur'=>$demandeur,
+            'userdata'=>$userdata,
+            'userdataid'=>$userdataid,
+            'userid'=>$userid,
+            
+        ]); */
+        
     }
 
     /**

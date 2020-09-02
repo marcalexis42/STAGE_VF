@@ -47,13 +47,14 @@
                       <a href="{{ path('user_data_new') }}" class="header__nav__bar--menu--link"> <i class="fas fa-phone"> </i> Compte</a>
 
                       {% endif %}
-                      
+                    <a href="{{path('app_logout')}}" class="header__nav__bar--menu--link"> <i class="fas fa-sign-out-alt"></i> Deconnexion</a>
                     {% else %}
                       <a href="{{path('app_login')}}" class="header__nav__bar--menu--link"> <i class="fas fa-sign-in-alt"></i> Connexion</a>
-                      <a href="{{path('app_logout')}}" class="header__nav__bar--menu--link"> <i class="fas fa-sign-out-alt"></i> Deconnexion</a>
+                    
                       
                     
                     {% endif %}
+                    
                     </div>
 
                   </div>

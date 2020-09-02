@@ -19,10 +19,10 @@ class UserDataRepository extends ServiceEntityRepository
         parent::__construct($registry, UserData::class);
     }
 
-    // /**
-    //  * @return UserData[] Returns an array of UserData objects
-    //  */
-    /*
+     /**
+      * @return UserData[] Returns an array of UserData objects
+      */
+    
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('u')
@@ -34,9 +34,9 @@ class UserDataRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    */
+    
 
-    /*
+    
     public function findOneBySomeField($value): ?UserData
     {
         return $this->createQueryBuilder('u')
@@ -46,5 +46,5 @@ class UserDataRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
-    */
+    
 }
