@@ -3,9 +3,15 @@
 {% block title %}New Topics{% endblock %}
 
 {% block body %}
-    <h1>Create new Topics</h1>
+
+<div class="container-fluid text-center">
+
+    <h1>Creation du nouveau topic</h1>
 
     {{ include('topics/_form.html.twig') }}
 
-    <a href="{{ path('topics_index') }}">back to list</a>
+    <a href="{{ path('topics_index') }}">Retour à la liste des topics </a>
+
+  </div>
+<br>
 {% endblock %}

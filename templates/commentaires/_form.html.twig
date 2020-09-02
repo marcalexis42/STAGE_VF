@@ -1,0 +1,6 @@
+{{ form_start(form) }}
+  {{ form_row(form.content, {
+      label: 'Creation du nouveau commentaire' 
+    }) }}
+    <button class="btn">{{ button_label|default('Sauvegarder') }}</button>
+{{ form_end(form) }}

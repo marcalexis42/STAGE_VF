@@ -3,43 +3,67 @@
 {% block title %}Topics index{% endblock %}
 
 {% block body %}
-    <h1>Topics index</h1>
 
-    <table class="table">
+<div class="container">
+
+    <h1>Liste des topics</h1>
+    <br>
+
+    <div class="d-flex justify-content-between ">
+      <div>
+          <a href="{{ path('topics_new') }}"> <span class="btn btn-primary">Créer un nouveau topic </span> </a>
+      </div>
+      <div class="buttons-toolbar">
+      </div>
+    </div>
+
+    <br>
+
+
+    <table class="table table-sm table-striped table-borderless"
+            data-toggle="table" data-search="true" data-show-columns="true" data-show-refresh="true" data-buttons-toolbar=".buttons-toolbar" data-pagination="true" >
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Subject</th>
-                <th>Edited_at</th>
-                <th>Content</th>
-                <th>Type</th>
-                <th>Pin</th>
-                <th>Msg_counter</th>
-                <th>actions</th>
+                <th data-field="Sujet">Sujet</th>
+                <th data-field="Auteur">Auteur</th>
+                <th data-sortable="true" data-field="Type">Type</th>
+                <th>NB messages</th>
+                <th data-field="Dernier message">Dernier message </th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
         {% for topic in topics %}
             <tr>
-                <td>{{ topic.id }}</td>
-                <td>{{ topic.subject }}</td>
-                <td>{{ topic.editedAt ? topic.editedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ topic.content }}</td>
-                <td>{{ topic.type }}</td>
-                <td>{{ topic.pin ? 'Yes' : 'No' }}</td>
-                <td>{{ topic.msgCounter }}</td>
                 <td>
-                    <a href="{{ path('topics_show', {'id': topic.id}) }}">show</a>
-                    <a href="{{ path('topics_edit', {'id': topic.id}) }}">edit</a>
+                  {% if topic.pin ==  1 %}
+                  <span style="color: red;">
+                    <i class="fas fa-thumbtack"></i>
+                  </span>
+                  {% endif %}
+                  <a href="{{ path(('topics_show'), { 'id': topic.id } )}}"> {{ topic.subject }} </a> </td>
+                <td>{{ topic.author.username }}</td>
+                <td>{{ topic.type }}</td>
+                <td>{{ topic.commentaires | length }}</td>
+                <td>{{ topic.editedAt ? topic.editedAt|date("d  /m/Y H:i", "Europe/Paris") }}</td>
+                <td>
+                  {% if topic.author == app.user %}
+                    <button type="button" class="btn far fa-edit" onclick="window.location.href='{{ path('topics_edit', {'id': topic.id}) }}'"> </button>
+                  {% endif %}
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="8">no records found</td>
+                <td colspan="8"> Pas de topics crée</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('topics_new') }}">Create new</a>
+    <br>
+
+
+
+  </div>
+
 {% endblock %}

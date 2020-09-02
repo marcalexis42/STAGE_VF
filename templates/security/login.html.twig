@@ -3,6 +3,7 @@
 {% block title %}Connexion{% endblock %}
 
 {% block body %}
+<div class="container-fluid text-center">
 <form method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -45,5 +46,5 @@
 <h1 class="h4 mb-3 font-weight-normal">Si vous n'avez pas encore de compte : </h1>
 
 <a href="{{path('app_register')}}" class="btn btn-lg btn-primary" role="button">Créer un compte</a>
-
+</div>
 {% endblock %}

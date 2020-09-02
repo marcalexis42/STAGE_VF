@@ -26,7 +26,7 @@
     height: 100px;
     background: url('../img/logo-maison-des-eleves.png');
     background-repeat: no-repeat;
-    z-index: 999;
+    z-index: 100;
   }
 
   .header__mask{
@@ -35,35 +35,43 @@
     background: 0 0;
     height: 42px;
     width: 100%;
-    z-index: 10;
+    z-index: 2;
   }
 
   .header__navbar {
     height: 50px;
     width: 100%;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
   }
+
+
+  .header__nav__bar--menu{
+    position: absolute;
+    z-index: 100;
+
+  }
+  .header__nav__bar--menu--link{
+    color: white;
+    margin-left: 40px;
+    text-decoration: none;
+    z-index: 100;
+  }
+
 
   .header__nav__bar--logo-title{
     color: #fff;
     font-size: 28px;
     letter-spacing: 1px;
-  }
 
-
-  .header__nav__bar--menu--link{
-    color: white;
-    margin-left: 40px;
-    text-decoration: none;
-    z-index: 10
   }
 
   .header__slogan{
     text-align: center;
     margin-top: 20px;
+    position: relative;
+    z-index: 1;
   }
   .header__slogan--title{
     color: #fff;

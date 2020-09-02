@@ -1,0 +1,5 @@
+<form method="post" action="{{ path('commentaires_delete', {'id': commentaire.id , 'topicId': commentaire.subject.id }) }}" onsubmit="return confirm('Etes vous sur de vouloir supprimer ce commentaire ?'');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ commentaire.id) }}">
+    <button class="btn far fa-trash-alt"></button>
+</form>

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Commentaires{% endblock %}
+
+{% block body %}
+    <h1>Editer Commentaires</h1>
+
+    {{ include('commentaires/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+
+    <a href="{{ path('topics_show' , {'id': commentaire.subject.id} ) }}}">Retour au topic</a>
+
+    {{ include('commentaires/_delete_form.html.twig') }}
+{% endblock %}

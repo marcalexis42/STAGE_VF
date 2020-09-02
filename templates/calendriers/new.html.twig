@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Calendriers{% endblock %}
+
+{% block body %}
+    <h1>Créer nouvel évènement</h1>
+
+    {{ include('calendriers/_form.html.twig') }}
+    <a class="btn btn-primary" href="{{ path('calendriers_index') }}">Retour à la liste </a>
+{% endblock %}

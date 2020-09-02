@@ -3,11 +3,13 @@
 {% block title %}Edit Topics{% endblock %}
 
 {% block body %}
-    <h1>Edit Topics</h1>
+<div class="container-fluid text-center">
+    <h1>Editer Topics</h1>
 
-    {{ include('topics/_form.html.twig', {'button_label': 'Update'}) }}
+  {{ include('topics/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
 
-    <a href="{{ path('topics_index') }}">back to list</a>
+  <a href="{{ path('topics_index') }}">Retour à la liste</a>
 
-    {{ include('topics/_delete_form.html.twig') }}
+  {{ include('topics/_delete_form.html.twig') }}
+</div>
 {% endblock %}

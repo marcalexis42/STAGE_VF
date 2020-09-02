@@ -7,6 +7,10 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
+
 
 class TopicsType extends AbstractType
 {
@@ -14,12 +18,13 @@ class TopicsType extends AbstractType
     {
         $builder
             ->add('subject')
-            ->add('edited_at', DateType::class)
-            ->add('content', TextType::class)
-            ->add('type')
-            ->add('pin')
-            ->add('msg_counter')
-            ->add('author')
+            ->add('content', CKEditorType::class)
+            ->add('type', ChoiceType::class, [
+              'choices' => [
+              'Proposition' => 'Proposition',
+              'Remarque'   => 'Remarque',
+              'Divers' => 'Divers'
+            ]])
         ;
     }
 

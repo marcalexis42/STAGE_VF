@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CR index{% endblock %}
+
+{% block body %}
+    <h1>Liste des comptes rendu </h1>
+<br>
+<div class="d-flex justify-content-between ">
+  <div>
+          <a class="btn btn-primary" href="{{ path('c_r_new') }}"> Nouveau compte rendu </a>
+  </div>
+  <div class="buttons-toolbar">
+  </div>
+</div>
+<br>
+<table class="table table-sm table-striped table-borderless"
+        data-toggle="table" data-search="true" data-show-columns="true" data-show-refresh="true" data-buttons-toolbar=".buttons-toolbar" data-pagination="true" >
+        <thead>
+            <tr>
+                <th>Nom du compte rendu </th>
+                <th>Date de création </th>
+                <th>Télechargement</th>
+                <th>Supression</th>
+
+            </tr>
+        </thead>
+        <tbody>
+        {% for c_r in c_rs %}
+            <tr>
+                <td>{{ c_r.name }}</td>
+                <td>{{ c_r.createdAt ? c_r.createdAt|date("d/m/Y H:i", "Europe/Paris") }}</td>
+                <td>
+                  <a class="fas fa-download" href="{{ asset('uploads/CR/' ~ c_r.filename) }}"> Voir PDF </a>
+                </td>
+                <td>
+                  {{ include('cr/_delete_form.html.twig') }}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Pas de compte rendu trouvé </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

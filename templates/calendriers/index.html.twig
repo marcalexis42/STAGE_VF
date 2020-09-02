@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Calendriers index{% endblock %}
+
+{% block body %}
+    <h1>Liste des évènements </h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Début</th>
+                <th>Fin</th>
+                <th>Description</th>
+                <th>Toute la journée </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for calendrier in calendriers %}
+            <tr>
+                <td>{{ calendrier.title }}</td>
+                <td>{{ calendrier.start ? calendrier.start|date("d  /m/Y H:i", "Europe/Paris")}}</td>
+                <td>{{ calendrier.end ? calendrier.end|date("d  /m/Y H:i", "Europe/Paris" ) }}</td>
+                <td>{{ calendrier.description }}</td>
+                <td>{{ calendrier.allDay ? 'Oui' : 'Non' }}</td>
+                <td>
+                  <div class="container d-flex h-100">
+                    <a href="{{ path('calendriers_edit', {'id': calendrier.id}) }}">Editer</a>
+                    {{ include('calendriers/_delete_form.html.twig') }}
+                  </div>
+
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10"> Pas d'évènements crées</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-primary" href="{{ path('calendriers_new') }}">Créer nouveau évènement</a>
+{% endblock %}

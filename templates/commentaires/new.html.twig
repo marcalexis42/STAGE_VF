@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Commentaires{% endblock %}
+
+{% block body %}
+    <br>
+    {{ include('commentaires/_form.html.twig') }}
+    <a href="{{ path('topics_show' , {'id':  commentaire.subject.id} ) }}">Retour au topic</a>
+{% endblock %}

@@ -6,17 +6,15 @@ use App\Entity\Commentaires;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 
 class CommentairesType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('created_at')
-            ->add('content')
-            ->add('edited_at')
-            ->add('author')
-            ->add('subject')
+            ->add('content', CKEditorType::class)
         ;
     }
 

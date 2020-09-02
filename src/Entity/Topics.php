@@ -33,6 +33,11 @@ class Topics
     /**
      * @ORM\Column(type="datetime")
      */
+    private $created_at;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
     private $edited_at;
 
     /**
@@ -55,10 +60,6 @@ class Topics
      */
     private $commentaires;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $msg_counter;
 
     public function __construct()
     {
@@ -173,14 +174,14 @@ class Topics
         return $this;
     }
 
-    public function getMsgCounter(): ?int
+    public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->msg_counter;
+        return $this->created_at;
     }
 
-    public function setMsgCounter(int $msg_counter): self
+    public function setCreatedAt(\DateTimeInterface $created_at): self
     {
-        $this->msg_counter = $msg_counter;
+        $this->created_at = $created_at;
 
         return $this;
     }

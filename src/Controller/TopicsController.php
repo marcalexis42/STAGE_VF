@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @Route("/topics")
@@ -18,10 +19,16 @@ class TopicsController extends AbstractController
     /**
      * @Route("/", name="topics_index", methods={"GET"})
      */
-    public function index(TopicsRepository $topicsRepository): Response
+    public function index(TopicsRepository $topicsRepository, Request $request): Response
     {
+      $topics = $topicsRepository->findBy([],
+          ['pin' => 'desc' ,
+           'edited_at' => 'desc'
+          ],
+        );
+
         return $this->render('topics/index.html.twig', [
-            'topics' => $topicsRepository->findAll(),
+            'topics' => $topics,
         ]);
     }
 
@@ -31,6 +38,10 @@ class TopicsController extends AbstractController
     public function new(Request $request): Response
     {
         $topic = new Topics();
+        $topic->setCreatedAt(new \DateTime('now'));
+        $topic->setEditedAt(new \DateTime('now'));
+        $topic->setAuthor($this->getUser());
+        $topic->setPin(0);
         $form = $this->createForm(TopicsType::class, $topic);
         $form->handleRequest($request);
 
@@ -51,7 +62,7 @@ class TopicsController extends AbstractController
     /**
      * @Route("/{id}", name="topics_show", methods={"GET"})
      */
-    public function show(Topics $topic): Response
+    public function show(Topics $topic ): Response
     {
         return $this->render('topics/show.html.twig', [
             'topic' => $topic,
@@ -65,6 +76,8 @@ class TopicsController extends AbstractController
     {
         $form = $this->createForm(TopicsType::class, $topic);
         $form->handleRequest($request);
+        $topic->setEditedAt(new \DateTime('now'));
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
