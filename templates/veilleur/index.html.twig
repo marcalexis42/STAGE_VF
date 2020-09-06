@@ -2,23 +2,55 @@
 
 {% block title %}Espace Veilleurs{% endblock %}
 
+
 {% block body %}
 
-<script src="https://kit.fontawesome.com/d518001464.js" crossorigin="anonymous"></script>
-
-<div>
-  <h1> Bienvenue {{app.user.username}} ! </h1>
-  <h1> Page d'accueil des Veilleurs </h1>
-    <h4> Ce site est développé par GUERIN Alexis et PERRIN Marc </h4>
-</div>
-
-<div class="alert alert-primary" role="alert">
-  Le site est toujours en cours de développement, <a href="#" class="alert-link">contacter</a> les développeurs pour plus d'informations
+<div class="d-flex justify-content-between">
+  <a class="btn btn-primary" href="{{ path('calendriers_new') }}">Créer nouveau évènement</a>
+  <a class="btn btn-primary" href="{{ path('calendriers_index') }}">Liste des évènements </a>
 </div>
 
 
-<div class="row">
-  <button type="button" class="btn btn-lg" onclick="window.location.href='{{path('accueil')}}'">Retour</button>
+<br>
+<div class="calendrier" id="calendrier">
+
 </div>
+
+{% endblock %}
+
+
+{% block javascripts %}
+
+<script src='fullcalendar/core/main.js'></script>
+<script src='fullcalendar/core/locales-all.js'></script>
+
+<script>
+  window.onload = () => {
+      let calendarElt = document.querySelector("#calendrier")
+      let calendar = new FullCalendar.Calendar(calendarElt, {
+          themeSystem: 'bootstrap',
+          selectable: true,
+          selectHelper: true,
+          editable: true,
+          eventLimit: true,
+          height: 800,
+          locale: 'fr',
+          initialView: 'dayGridMonth',
+          timeZone: 'Europe/Paris',
+          headerToolbar: {
+              start: 'prev,next today',
+              center: 'title',
+              end: 'dayGridMonth,timeGridWeek,timeGridDay'
+          },
+          events: {{ data|raw }},
+          editable: true,
+          eventResizableFromStart: true,
+      })
+
+      calendar.render()
+  }
+</script>
+
+<br>
 
 {% endblock %}

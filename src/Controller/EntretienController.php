@@ -6,15 +6,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\CalendriersRepository;
 
-class MaintenanceController extends AbstractController
+class EntretienController extends AbstractController
 {
     /**
-     * @Route("/maintenance", name="maintenance")
+     * @Route("/entretien", name="entretien")
      */
      public function index(calendriersRepository $calendar)
      {
        $events = $calendar->findBy(
-           [ 'espace' => 'maintenance' ]
+           [ 'espace' => 'entretien' ]
          );
                $rdvs = [];
 
@@ -34,6 +34,6 @@ class MaintenanceController extends AbstractController
 
                $data = json_encode($rdvs);
 
-             return $this->render('maintenance/index.html.twig'  , compact('data'));
+             return $this->render('entretien/index.html.twig'  , compact('data'));
      }
 }
