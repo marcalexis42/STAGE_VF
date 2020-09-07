@@ -208,37 +208,6 @@ class Users implements UserInterface
 
         return $this;
     }
-      /**
-       * @return Collection|Demande[]
-       */
-      public function getDemandes(): Collection
-      {
-          return $this->demandes;
-      }
-
-      public function addDemande(Demande $demande): self
-      {
-          if (!$this->demandes->contains($demande)) {
-              $this->demandes[] = $demande;
-              $demande->setEditor($this);
-          }
-
-          return $this;
-      }
-
-      public function removeDemande(Demande $demande): self
-      {
-          if ($this->demandes->contains($demande)) {
-              $this->demandes->removeElement($demande);
-              // set the owning side to null (unless already changed)
-              if ($demande->getEditor() === $this) {
-                  $demande->setEditor(null);
-              }
-          }
-
-          return $this;
-      }
-
     /**
      * @return Collection|Commentaires[]
      */
