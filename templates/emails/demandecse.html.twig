@@ -1,5 +1,15 @@
 <h1>Nouvelle demande</h1>
-<p>Nom : {{demandeur.username}}</p>
-<p>e-mail : {{demandeur.email}}</p>
-<p>Objet de la demande = {{demande.object}}</p>
-<p>Contenu de la demande = {{demande.content}}</p>
+<div>   
+    <p>Nom : {{demandeur.username}}</p>
+    <p>e-mail : {{demandeur.email}}</p>
+    <p>Compteur d'heures de l'employé : {{demandeur.hours}}</p>
+    <p>Compteur de jours de l'employé : {{demandeur.holidays}}</p>
+</div>
+<div>
+    <p>Objet de la demande = {{demande.object}}</p>
+    <p>Motif de la demande = {{demande.content}}</p>
+    <p>Heures de récup demandées  = {{demande.hoursrequest}}</p>
+    <p>Heures supp déclarées = {{demande.hourssupp}}</p>
+    <p>Jours de congés demandés = {{demande.holidaysrequest}}</p>
+    <p>Acompte demandé = {{demande.money}}</p>
+</div>

@@ -54,7 +54,7 @@ class DemandeComptableController extends AbstractController
     /**
      * @Route("/new", name="demande_comptable_new", methods={"GET","POST"})
      */
-    public function new(Request $request, UserInterface $user): Response
+    public function new(Request $request,\Swift_Mailer $mailer, UserInterface $user): Response
     {
         $demandeComptable = new DemandeComptable();
         $demandeComptable -> setCreatedat(new \DateTime('now'));
@@ -69,6 +69,41 @@ class DemandeComptableController extends AbstractController
             $entityManager->persist($demandeComptable);
             $entityManager->flush();
             $this->addFlash('message', 'Votre demande a été transmise.'); // Permet un message flash de renvoi
+
+            $repository = $this->getDoctrine()->getRepository(UserData::class);
+
+            $receveurs=$repository->findBy(
+                ['poste' => ['Comptable','Direction']]
+            );
+            $emailreceveurs=array();
+            foreach($receveurs as $receveur){
+                $receptioner=$receveur->getUsers();
+
+                array_push($emailreceveurs, $receptioner->getEmail());
+            }
+            $demande=$form->getData();
+            // On crée le message
+            $message = (new \Swift_Message('Nouvelle demande Comptable'))
+                // On attribue l'expéditeur
+                ->setFrom($demandeComptable->getUser()->getEmail())
+                // On attribue le destinataire
+                    /* foreach($emailreceveurs as $email){
+                        ->setTo($email)
+                    } */
+                ->setTo($emailreceveurs)
+                // On crée le texte avec la vue
+                ->setBody(
+                    $this->renderView(
+                        'emails/demandecomptable.html.twig', [
+                            'demandeur'=>$user,
+                            'demande'=>$demande,
+                        ]
+                    ),
+                    'text/html'
+                )
+            ;
+            $mailer->send($message);
+
 
             return $this->redirectToRoute('demande_comptable_index');
         }
